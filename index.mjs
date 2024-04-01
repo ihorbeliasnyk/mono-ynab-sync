@@ -1,5 +1,18 @@
 import * as ynab from 'ynab';
-const ynabAPI = new ynab.API(process.env.YNAB_TOKEN);
+import {
+  SecretsManagerClient,
+  GetSecretValueCommand,
+} from '@aws-sdk/client-secrets-manager';
+
+const client = new SecretsManagerClient({ region: 'eu-north-1' });
+const secretResponse = await client.send(
+  new GetSecretValueCommand({
+    SecretId: 'YNAB',
+  })
+);
+const YNAB_TOKEN = JSON.parse(secretResponse.SecretString).YNAB_TOKEN;
+
+const ynabAPI = new ynab.API(YNAB_TOKEN);
 
 export const handler = async (event, context) => {
   if (event.requestContext.http.method === 'GET') {
