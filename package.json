@@ -1,0 +1,19 @@
+{
+  "name": "mono-ynab-sync",
+  "version": "0.1.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.12.2",
+    "eslint": "^8.57.0"
+  },
+  "dependencies": {
+    "ynab": "^2.2.0"
+  },
+  "type": "module"
+}
