@@ -26,5 +26,5 @@ jobs:
         npm ci 
     - name: deploy
       run: |
-        zip -j deploy.zip ./*
+        zip -r deploy.zip ./*
         aws lambda update-function-code --function-name=mono-ynab-sync --zip-file=fileb://deploy.zip
