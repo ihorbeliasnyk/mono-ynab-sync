@@ -14,7 +14,7 @@ const YNAB_TOKEN = JSON.parse(secretResponse.SecretString).YNAB_TOKEN;
 
 const ynabAPI = new ynab.API(YNAB_TOKEN);
 
-export const handler = async (event, context) => {
+export const handler = async (event) => {
   if (event.requestContext.http.method === 'GET') {
     console.log('Webhook registered');
     return {
@@ -27,13 +27,7 @@ export const handler = async (event, context) => {
 
     const msg = JSON.parse(event.body);
 
-    if (
-      !(
-        msg.type === 'StatementItem' &&
-        msg.data.account === process.env.MONO_ACCOUNT_ID &&
-        msg.data.statementItem.amount < 0
-      )
-    ) {
+    if (!(msg.type === 'StatementItem' && msg.data.statementItem.amount < 0)) {
       return {
         statusCode: 200,
       };
