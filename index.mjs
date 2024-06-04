@@ -14,6 +14,11 @@ const YNAB_TOKEN = JSON.parse(secretResponse.SecretString).YNAB_TOKEN;
 
 const ynabAPI = new ynab.API(YNAB_TOKEN);
 
+const monoAllowedAccountIds = [
+  'm2TMV6h71fJEl3r7kaAKjg',
+  'KL98vkSog0Fye1lVVtn1ag',
+];
+
 export const handler = async (event) => {
   if (event.requestContext.http.method === 'GET') {
     console.log('Webhook registered');
@@ -27,7 +32,13 @@ export const handler = async (event) => {
 
     const msg = JSON.parse(event.body);
 
-    if (!(msg.type === 'StatementItem' && msg.data.statementItem.amount < 0)) {
+    if (
+      !(
+        msg.type === 'StatementItem' &&
+        monoAllowedAccountIds.includes(msg.data.account) &&
+        msg.data.statementItem.amount < 0
+      )
+    ) {
       return {
         statusCode: 200,
       };
