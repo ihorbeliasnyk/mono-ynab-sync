@@ -15,8 +15,8 @@ const YNAB_TOKEN = JSON.parse(secretResponse.SecretString).YNAB_TOKEN;
 const ynabAPI = new ynab.API(YNAB_TOKEN);
 
 const monoAllowedAccountIds = [
-  'SVLVLI_OdNfFgvUyA1J8yQ',
   'KL98vkSog0Fye1lVVtn1ag',
+  '5Rv1pRRyrGqDHmcjnvNlxg',
 ];
 
 export const handler = async (event) => {
