@@ -28,7 +28,7 @@ export const handler = async (event) => {
   }
 
   if (event.requestContext.http.method === 'POST') {
-    console.log('Webhook received');
+    console.log('Webhook received', event);
 
     const msg = JSON.parse(event.body);
 
